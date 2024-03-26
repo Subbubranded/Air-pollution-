@@ -1,1 +1,40 @@
+import time
+import RPi.GPIO as GPIO
 
+# Setup GPIO pins for sensors
+MQ135_PIN = 17
+MQ6_PIN = 18
+
+# Initialize GPIO
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(MQ135_PIN, GPIO.IN)
+GPIO.setup(MQ6_PIN, GPIO.IN)
+
+# Function to read sensor values
+def read_sensor(pin):
+    return GPIO.input(pin)
+
+# Function to calculate air quality index
+def calculate_aqi(mq135_value, mq6_value):
+    # Add your calculation logic here
+    # Example: AQI = some_function_of(mq135_value, mq6_value)
+    return AQI
+
+# Main loop
+while True:
+    mq135_value = read_sensor(MQ135_PIN)
+    mq6_value = read_sensor(MQ6_PIN)
+    
+    # Calculate air quality index
+    aqi = calculate_aqi(mq135_value, mq6_value)
+    
+    # Display PPM values
+    print("MQ135 PPM:", mq135_value)
+    print("MQ6 PPM:", mq6_value)
+    print("Air Quality Index:", aqi)
+    
+    # Add logic for triggering alarms based on AQI threshold
+    
+    # Delay for some time before next reading
+    time.sleep(5)  # Adjust as per your requirement
