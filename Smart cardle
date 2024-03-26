@@ -1,0 +1,34 @@
+import time
+import random
+
+# Function to simulate temperature and humidity readings
+def read_sensor_data():
+    temperature = random.randint(20, 30)  # Simulated temperature reading
+    humidity = random.randint(40, 60)     # Simulated humidity reading
+    return temperature, humidity
+
+# Function to detect baby's cry
+def detect_cry():
+    # Simulated cry detection
+    return random.choice([True, False])
+
+# Function to stream live video feed
+def stream_video():
+    # Simulated video streaming
+    print("Streaming live video feed...")
+
+# Main loop for Smart Cradle System
+while True:
+    # Read sensor data
+    temperature, humidity = read_sensor_data()
+    print(f"Temperature: {temperature}°C, Humidity: {humidity}%")
+
+    # Check for cry detection
+    if detect_cry():
+        print("Baby is crying! Sending notification...")
+
+    # Stream live video feed
+    stream_video()
+
+    # Delay before next iteration
+    time.sleep(5)  # Adjust this delay as needed
