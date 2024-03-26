@@ -1,0 +1,71 @@
+import time
+
+class GarageDoor:
+    def __init__(self):
+        self.is_open = False
+        self.laser_enabled = False
+
+    def open(self):
+        if not self.is_open:
+            print("Opening the garage door")
+            # Code to open the garage door
+            self.is_open = True
+        else:
+            print("The garage door is already open")
+
+    def close(self):
+        if self.is_open:
+            print("Closing the garage door")
+            # Code to close the garage door
+            self.is_open = False
+        else:
+            print("The garage door is already closed")
+
+    def enable_laser(self):
+        self.laser_enabled = True
+        print("Laser system enabled")
+
+    def disable_laser(self):
+        self.laser_enabled = False
+        print("Laser system disabled")
+
+    def voice_command(self, command):
+        if command.lower() == "open sesame":
+            self.open()
+        elif command.lower() == "close sesame":
+            self.close()
+        else:
+            print("Invalid voice command")
+
+    def send_notification(self, message):
+        print("Notification:", message)
+
+# Initialize the garage door
+garage_door = GarageDoor()
+
+# Main loop for Smart Garage Door system
+while True:
+    # Simulate receiving commands from smartphone or IoT network
+    command = input("Enter command (open/close/enable laser/disable laser/voice command/send notification/exit): ")
+    
+    if command.lower() == "open":
+        garage_door.open()
+    elif command.lower() == "close":
+        garage_door.close()
+    elif command.lower() == "enable laser":
+        garage_door.enable_laser()
+    elif command.lower() == "disable laser":
+        garage_door.disable_laser()
+    elif command.lower() == "voice command":
+        voice_command = input("Enter voice command: ")
+        garage_door.voice_command(voice_command)
+    elif command.lower() == "send notification":
+        message = input("Enter notification message: ")
+        garage_door.send_notification(message)
+    elif command.lower() == "exit":
+        break
+    else:
+        print("Invalid command")
+
+    # Simulate delay before next iteration
+    time.sleep(1)
