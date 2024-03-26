@@ -1,0 +1,52 @@
+import time
+import requests
+import Adafruit_DHT
+import RPi.GPIO as GPIO
+
+# Sensor pins
+DHT_SENSOR = Adafruit_DHT.DHT11
+DHT_PIN = 4
+RAIN_SENSOR_PIN = 17
+
+# Weather API endpoint
+WEATHER_API_ENDPOINT = "http://your_weather_api_endpoint_here"
+
+# Initialize GPIO
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(RAIN_SENSOR_PIN, GPIO.IN)
+
+# Function to read temperature and humidity
+def read_temperature_humidity():
+    humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_PIN)
+    return humidity, temperature
+
+# Function to check rain status
+def is_raining():
+    return GPIO.input(RAIN_SENSOR_PIN)
+
+# Function to report weather to the API
+def report_weather(temperature, humidity, is_raining):
+    data = {
+        "temperature": temperature,
+        "humidity": humidity,
+        "is_raining": is_raining
+    }
+    response = requests.post(WEATHER_API_ENDPOINT, json=data)
+    if response.status_code == 200:
+        print("Weather reported successfully.")
+    else:
+        print("Failed to report weather.")
+
+# Main loop
+while True:
+    humidity, temperature = read_temperature_humidity()
+    rain_status = is_raining()
+    
+    # Report weather to the API
+    report_weather(temperature, humidity, rain_status)
+    
+    # Add logic for setting alerts based on weather conditions
+    
+    # Delay for some time before next reading
+    time.sleep(300)  # Delay for 5 minutes (adjust as needed)
