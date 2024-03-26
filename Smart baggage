@@ -1,0 +1,38 @@
+import time
+import RPi.GPIO as GPIO  # Assuming Raspberry Pi, adjust for your hardware
+
+# GPIO pins for controlling the garage door
+OPEN_PIN = 17
+CLOSE_PIN = 18
+
+# Initialize GPIO
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(OPEN_PIN, GPIO.OUT)
+GPIO.setup(CLOSE_PIN, GPIO.OUT)
+
+# Function to open the garage door
+def open_door():
+    GPIO.output(OPEN_PIN, GPIO.HIGH)
+    time.sleep(1)  # Adjust this delay as needed
+    GPIO.output(OPEN_PIN, GPIO.LOW)
+
+# Function to close the garage door
+def close_door():
+    GPIO.output(CLOSE_PIN, GPIO.HIGH)
+    time.sleep(1)  # Adjust this delay as needed
+    GPIO.output(CLOSE_PIN, GPIO.LOW)
+
+# Main loop for controlling the garage door
+while True:
+    command = input("Enter 'open' to open the door, 'close' to close the door, or 'exit' to quit: ")
+    if command == 'open':
+        open_door()
+    elif command == 'close':
+        close_door()
+    elif command == 'exit':
+        break
+    else:
+        print("Invalid command, please try again.")
+
+# Clean up GPIO
+GPIO.cleanup()
