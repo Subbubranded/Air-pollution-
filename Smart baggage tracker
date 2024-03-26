@@ -1,0 +1,50 @@
+import time
+import random
+
+class BaggageTracker:
+    def __init__(self):
+        self.is_tracking = False
+
+    def start_tracking(self):
+        self.is_tracking = True
+        print("Baggage tracking started")
+
+    def stop_tracking(self):
+        self.is_tracking = False
+        print("Baggage tracking stopped")
+
+    def get_coordinates(self):
+        # Simulated function to get GPS coordinates
+        latitude = random.uniform(-90, 90)
+        longitude = random.uniform(-180, 180)
+        return latitude, longitude
+
+    def send_coordinates_to_phone(self, latitude, longitude):
+        # Simulated function to send coordinates to the user's phone
+        print(f"Sending coordinates to phone: Latitude={latitude}, Longitude={longitude}")
+
+# Initialize the baggage tracker
+baggage_tracker = BaggageTracker()
+
+# Main loop for Smart Baggage Tracker system
+while True:
+    # Simulate user input to start or stop tracking
+    command = input("Enter 'start' to begin baggage tracking, 'stop' to end tracking, or 'exit' to quit: ")
+    
+    if command.lower() == "start":
+        baggage_tracker.start_tracking()
+        # Continuously track the baggage and send coordinates
+        while baggage_tracker.is_tracking:
+            latitude, longitude = baggage_tracker.get_coordinates()
+            baggage_tracker.send_coordinates_to_phone(latitude, longitude)
+            # Simulate delay between coordinate updates
+            time.sleep(5)  # Adjust as needed
+    elif command.lower() == "stop":
+        baggage_tracker.stop_tracking()
+    elif command.lower() == "exit":
+        break
+    else:
+        print("Invalid command")
+
+    # Simulate delay before next iteration
+    time.sleep(1)
